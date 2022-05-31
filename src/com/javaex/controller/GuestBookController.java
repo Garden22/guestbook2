@@ -3,7 +3,6 @@ package com.javaex.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.javaex.dao.GuestBookDao;
+import com.javaex.util.WebUtil;
 import com.javaex.vo.GuestBookVo;
 
 
@@ -30,8 +30,7 @@ public class GuestBookController extends HttpServlet {
 				List<GuestBookVo> gList = gbDao.select();
 				request.setAttribute("gList", gList);
 				
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/addList.jsp");
-				rd.forward(request, response);
+				WebUtil.forward(request, response, "/WEB-INF/addList.jsp");
 				break;
 			
 			case "add":
@@ -42,7 +41,7 @@ public class GuestBookController extends HttpServlet {
 				gbDao = new GuestBookDao();
 				gbDao.add(new GuestBookVo(name, pw, content));
 				
-				response.sendRedirect("/guestbook2/gbc?action=addList");
+				WebUtil.redirect(request, response, "/guestbook2/gbc?action=addList");
 				break;
 				
 			case "deleteForm":
@@ -50,8 +49,7 @@ public class GuestBookController extends HttpServlet {
 				
 				request.setAttribute("no", no);
 				
-				rd = request.getRequestDispatcher("/WEB-INF/deleteForm.jsp");
-				rd.forward(request, response);
+				WebUtil.forward(request, response, "/WEB-INF/deleteForm.jsp");
 				break;
 			
 			case "delete":
@@ -62,7 +60,7 @@ public class GuestBookController extends HttpServlet {
 				if (pw.equals(gbDao.findPW(no))) {
 					gbDao.delete(no);
 				}
-				response.sendRedirect("/guestbook2/gbc?action=addList");
+				WebUtil.redirect(request, response, "/guestbook2/gbc?action=addList");
 				break;
 		}
 	}
