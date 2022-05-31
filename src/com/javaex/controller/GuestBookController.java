@@ -30,7 +30,7 @@ public class GuestBookController extends HttpServlet {
 				List<GuestBookVo> gList = gbDao.select();
 				request.setAttribute("gList", gList);
 				
-				RequestDispatcher rd = request.getRequestDispatcher("./addList.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/addList.jsp");
 				rd.forward(request, response);
 				break;
 			
@@ -50,7 +50,7 @@ public class GuestBookController extends HttpServlet {
 				
 				request.setAttribute("no", no);
 				
-				rd = request.getRequestDispatcher("./deleteForm.jsp");
+				rd = request.getRequestDispatcher("/WEB-INF/deleteForm.jsp");
 				rd.forward(request, response);
 				break;
 			
